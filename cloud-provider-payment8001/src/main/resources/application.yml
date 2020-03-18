@@ -1,0 +1,15 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: payment-provider
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/cloud?userUnicode=ture&characterEncoding=utf-8&userSSL=false
+    username: root
+    password: xdccdx123
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.xdc.springcloud.entity
