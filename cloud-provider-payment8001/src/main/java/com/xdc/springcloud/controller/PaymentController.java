@@ -1,11 +1,16 @@
 package com.xdc.springcloud.controller;
 
+import com.netflix.appinfo.InstanceInfo;
 import com.xdc.springcloud.entity.CommonResult;
 import com.xdc.springcloud.entity.Payment;
 import com.xdc.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author xdc
@@ -18,6 +23,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @GetMapping("/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable("id") Long id) {
@@ -49,4 +57,17 @@ public class PaymentController {
             return new CommonResult<Integer>(400, "fail", result);
         }
     }
+
+    @GetMapping("/discoveryClient")
+    public void discoveryClient() {
+        List<String> services = discoveryClient.getServices();
+        for (String serviceStr : services) {
+            log.info(" service ---- " + serviceStr);
+        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("PAYMENT-PROVIDER");
+        for (ServiceInstance instance : instances){
+            log.info(instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getServiceId() + "\t" + instance.getInstanceId());
+        }
+    }
+
 }
