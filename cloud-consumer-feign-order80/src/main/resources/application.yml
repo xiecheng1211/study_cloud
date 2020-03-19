@@ -1,0 +1,33 @@
+server:
+  port: 80
+spring:
+  application:
+    name: order-consumer
+
+
+eureka:
+  instance:
+    hostname: localhost
+    # 修改服务显示名称
+    instance-id: order01
+    # 显示ip信息
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
+
+feign:
+  httpclient:
+    connection-timeout: 2000
+
+ribbon:
+  # 表示建立连接的等待超时时间  从建立请求到请求返回的时间
+  ReadTimeout: 5000
+  # 表示连接服务器所用的时间信息  从发起请求到请求结束的时间
+  connection-timeout: 5000
+# feign日志配置信息
+logging:
+  level:
+    com.xdc.springcloud.service.PaymentFeignService: debug
