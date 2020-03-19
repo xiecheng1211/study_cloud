@@ -17,14 +17,16 @@ public class OrderController {
     @Autowired
     private RestTemplate restTemplate;
 
+    private String addr = "http://payment-provider";
+
     @GetMapping("/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable("id") Long id) {
-        return restTemplate.getForObject("http://localhost:8001/payment/get/" + id, CommonResult.class);
+        return restTemplate.getForObject(addr + "/payment/get/" + id, CommonResult.class);
     }
 
     @PostMapping("/save")
     public CommonResult<Integer> create(@RequestBody Payment payment) {
-        return restTemplate.postForObject("http://localhost:8001/payment/save",  payment, CommonResult.class);
+        return restTemplate.postForObject(addr + "/payment/save",  payment, CommonResult.class);
     }
 
 

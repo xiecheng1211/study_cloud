@@ -8,7 +8,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/cloud?userUnicode=ture&characterEncoding=utf-8&userSSL=false
     username: root
-    password: xdccdx123
+    password: xdc123
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

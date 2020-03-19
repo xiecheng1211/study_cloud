@@ -5,8 +5,6 @@ import com.xdc.springcloud.entity.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * @author xdc
  * created by 2020/3/18
