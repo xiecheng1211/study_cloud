@@ -21,6 +21,7 @@
     <module>cloud-consumer-hystrix-order80</module>
       <module>cloud-gateway9527</module>
       <module>cloud-stream</module>
+      <module>cloud-provider-payment-nacos8001</module>
   </modules>
 
   <name>Maven</name>
