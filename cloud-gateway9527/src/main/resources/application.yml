@@ -1,0 +1,35 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 表示启用注册中心的微服务名称来进行路由
+          enabled: true
+      routes:
+        - id: payment-provider
+          uri: bl://PAYMENT-PROVIDER
+          predicates:
+            - Path=/payment/get/**
+
+        - id: payment-provider2
+          uri: http://localhost:8001
+          predicates:
+            - Path=/payment/save
+#表示请求需携带cookie           - Cookie=username,xdc
+eureka:
+  instance:
+    hostname: localhost
+    # 修改服务显示名称
+    instance-id: gateway
+    # 显示ip信息
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
