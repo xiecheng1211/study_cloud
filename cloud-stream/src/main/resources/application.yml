@@ -1,0 +1,60 @@
+spring:
+  profiles: stream-rabbit-customer-group1
+  cloud:
+    stream:
+      bindings:
+        input:
+          # 表示exchange名称 和output相对应
+          destination: default.messages
+          binder: local_rabbit
+        output:
+          # 表示exchange名称
+          destination: default.messages
+          binder: local_rabbit
+
+        # 自定义输入输出信道
+        log_input:
+          destination: kite.log.messages
+          binder: local_rabbit
+          group: logConsumer-group1
+        log_output:
+          destination: kite.log.messages
+          binder: local_rabbit
+          group: logConsumer-group1
+        log_format_input:
+          destination: kite.log.format.messages
+          binder: local_rabbit
+          group: logFormat-group1
+        log_format_input:
+          destination: kite.log.format.messages
+          binder: local_rabbit
+          # 相同的组只可能有一台机器消费，不同的组会多次消费 防止重复消费的问题
+          group: logFormat-group1
+
+      binders:
+        local_rabbit:
+          # 表示使用的mq信息
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 32775
+                username: guest
+                password: guest
+server:
+  port: 8802
+
+
+eureka:
+  instance:
+    hostname: localhost
+    # 修改服务显示名称
+    instance-id: cloud-stream
+    # 显示ip信息
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
